@@ -1,0 +1,43 @@
+#!/usr/bin/env python
+
+from __future__ import with_statement
+
+from setuptools import setup, find_packages
+
+setup(
+    name='Hemp',
+    version="0.0.1",
+    description='Tools for Fabric',
+    long_description="",
+    author='Addvilz',
+    author_email='mrtreinis@gmail.com',
+    url='https://github.com/Addvilz/hemp',
+    packages=find_packages(),
+    install_requires=[
+        "fabric>=1.12"
+    ],
+    # entry_points={
+    #     'console_scripts': [
+    #         'hemp = hemp.main',
+    #     ]
+    # },
+    classifiers=[
+        'Development Status :: 1 - Planning',
+        'Environment :: Console',
+        'Intended Audience :: Developers',
+        'Intended Audience :: System Administrators',
+        'License :: OSI Approved :: Apache Software License',
+        'Operating System :: MacOS :: MacOS X',
+        'Operating System :: POSIX :: Linux',
+        'Operating System :: POSIX',
+        'Operating System :: Unix',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python',
+        'Topic :: Software Development :: Build Tools',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        'Topic :: Software Development :: Libraries',
+        'Topic :: Software Development',
+        'Topic :: System :: Software Distribution',
+        'Topic :: System :: Systems Administration',
+    ],
+)
