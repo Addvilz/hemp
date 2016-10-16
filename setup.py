@@ -6,21 +6,20 @@ from setuptools import setup, find_packages
 
 setup(
     name='Hemp',
-    version="0.0.1",
+    version="0.0.3",
     description='Tools for Fabric',
-    long_description="",
+    long_description="Tools for Fabric",
     author='Addvilz',
     author_email='mrtreinis@gmail.com',
     url='https://github.com/Addvilz/hemp',
+    download_url='https://github.com/Addvilz/hemp',
+    license='Apache 2.0',
+    platforms='UNIX',
     packages=find_packages(),
     install_requires=[
-        "fabric>=1.12"
+        "fabric>=1.12",
+        "pyyaml>=3.12"
     ],
-    # entry_points={
-    #     'console_scripts': [
-    #         'hemp = hemp.main',
-    #     ]
-    # },
     classifiers=[
         'Development Status :: 1 - Planning',
         'Environment :: Console',
