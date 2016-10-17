@@ -20,6 +20,11 @@ setup(
         "fabric>=1.12",
         "pyyaml>=3.12"
     ],
+    entry_points={
+        'console_scripts': [
+            'hemp = hemp.main:main',
+        ]
+    },
     classifiers=[
         'Development Status :: 1 - Planning',
         'Environment :: Console',

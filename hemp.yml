@@ -1,0 +1,14 @@
+hemp:
+  environments:
+    staging:
+      roles:
+        web: ['web0.host.com']
+        db: ['web0.host.com']
+    production:
+      roles:
+        web: ['web1.host.com', 'web2.host.com', 'web3.host.com', 'web4.host.com']
+        db: ['web1.host.com']
+    development:
+      roles:
+        web: ['web5.host.lan']
+        db: ['web5.host.lan']

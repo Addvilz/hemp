@@ -1,7 +1,8 @@
-import yaml
-from os.path import expanduser, join, isfile
 from os import getcwd
-from fabric.api import env
+from os.path import expanduser, join, isfile
+
+import yaml
+from fabric.state import env
 
 _default_locations = [
     expanduser('~'),
@@ -27,22 +28,17 @@ def parse_hempfiles(file_paths=None):
     config = {}
     for file_path in file_paths:
         stream = open(file_path, 'r')
-        entries = yaml.load_all(stream)
+        entries = yaml.load(stream)
         config = _deep_merge(config, entries)
     return config
 
 
 def load_hempfiles(file_paths=None):
+    if 'hemp' in env:
+        return
     config = parse_hempfiles(file_paths)
     for option, value in config.items():
-        if option is not 'hemp':
-            setattr(env, option, value)
-        else:
-            _load_hemp_configs(value)
-
-
-def _load_hemp_configs(value):
-    pass
+        setattr(env, option, value)
 
 
 def _deep_merge(source, destination):
