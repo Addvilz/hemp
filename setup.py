@@ -4,11 +4,14 @@ from __future__ import with_statement
 
 from setuptools import setup, find_packages
 
+with open('README.rst') as f:
+    readme = f.read()
+
 setup(
     name='Hemp',
-    version="0.0.6",
+    version="0.0.7",
     description='Tools for Fabric',
-    long_description="Tools for Fabric",
+    long_description=readme,
     author='Addvilz',
     author_email='mrtreinis@gmail.com',
     url='https://github.com/Addvilz/hemp',
