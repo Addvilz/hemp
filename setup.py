@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='Hemp',
-    version="0.0.3",
+    version="0.0.4",
     description='Tools for Fabric',
     long_description="Tools for Fabric",
     author='Addvilz',
