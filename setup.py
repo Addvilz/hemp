@@ -9,7 +9,7 @@ with open('README.rst') as f:
 
 setup(
     name='Hemp',
-    version="0.0.8",
+    version="0.0.9",
     description='Tools for Fabric',
     long_description=readme,
     author='Addvilz',
