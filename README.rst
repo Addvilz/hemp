@@ -3,6 +3,11 @@ Hemp
 
 Extra tools for Fabric
 
+.. image:: https://img.shields.io/pypi/v/Hemp.svg?style=flat-square   :target: https://pypi.python.org/pypi/Hemp
+.. image:: https://img.shields.io/pypi/l/Hemp.svg?style=flat-square   :target: https://pypi.python.org/pypi/Hemp
+.. image:: https://img.shields.io/pypi/pyversions/Hemp.svg?style=flat-square   :target: https://pypi.python.org/pypi/Hemp
+.. image:: https://img.shields.io/github/issues/Addvilz/hemp.svg?style=flat-square   :target: https://github.com/Addvilz/hemp/issues
+
 Installation
 ------------
 
