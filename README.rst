@@ -1,5 +1,5 @@
 Hemp
-====
+=====
 
 Extra tools for Fabric
 
@@ -65,7 +65,7 @@ will ultimately result in ``development`` stage to be used.
 Sample environment configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: yml
+.. code:: yaml
 
     hemp:
       environments:
@@ -110,7 +110,7 @@ Additional ``env`` settings
 All root keys of the ``hemp.yml`` file will be loaded into Fabric’s
 ``env`` dictionary. For example, having configuration like
 
-.. code:: yml
+.. code:: yaml
 
     hosts: ['a.com', 'b.com']
     hemp: [
