@@ -9,7 +9,7 @@ with open('README.rst') as f:
 
 setup(
     name='Hemp',
-    version="0.0.7",
+    version="0.0.8",
     description='Tools for Fabric',
     long_description=readme,
     author='Addvilz',
@@ -21,7 +21,10 @@ setup(
     packages=find_packages(),
     install_requires=[
         "fabric>=1.12",
-        "pyyaml>=3.12"
+        "pyyaml>=3.12",
+        "GitPython>=2.0.9",
+        "natsort>=5.0.1",
+        "semver>=2.6.0"
     ],
     entry_points={
         'console_scripts': [
