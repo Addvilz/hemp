@@ -76,3 +76,5 @@ def release_local(url, version='patch', base='master', integration=None, default
 
     print_info('Done, clearing workspace')
     rmtree(workspace)
+
+    return next_version
