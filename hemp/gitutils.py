@@ -1,5 +1,6 @@
 from git import Git, Repo
 from natsort.natsort import natsorted, ns
+from urlparse import urlparse
 
 from hemp.internal.utils import SimpleProgressPrinter, print_info
 
@@ -62,3 +63,23 @@ def clone(url, directory, single_branch=None):
         args['single_branch'] = True
 
     return Repo.clone_from(**args)
+
+
+def repo_url_to_project_name(url, normalize=True):
+    # type: (str, bool) -> str
+    """
+    Extract project title from GIT repository URL, either https or ssh.
+    Should work fine with github, bitbucket
+    :rtype: str
+    :param url: Url of the repository
+    :param normalize: Title-case the project name
+    :return: Project name
+    """
+    if url.startswith('http'):
+        http_url = urlparse(url)
+        name = http_url.path.replace('.git', '').lstrip('/').strip()
+    else:
+        name = url[url.index(':') + 1:].replace('.git', '').strip()
+    if normalize:
+        return name.replace('/', ' / ').title()
+    return name

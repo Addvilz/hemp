@@ -9,7 +9,7 @@ with open('README.rst') as f:
 
 setup(
     name='Hemp',
-    version="0.0.16",
+    version="0.1.0",
     description='Tools for Fabric',
     long_description=readme,
     author='Addvilz',
@@ -32,7 +32,7 @@ setup(
         ]
     },
     classifiers=[
-        'Development Status :: 1 - Planning',
+        'Development Status :: 4 - Beta',
         'Environment :: Console',
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',

@@ -49,7 +49,7 @@ def release_local(url, version='patch', base='master', integration=None, default
     last_tag = None
 
     if repo.tags:
-        sorted_tags = natsorted(repo.tags, key=lambda t: t.commit.path, alg=ns.VERSION)
+        sorted_tags = natsorted(repo.tags, key=lambda t: t.path, alg=ns.VERSION)
         current_tag = sorted_tags[-1].path[10:]
         print_info('Current tag is {0}'.format(current_tag))
         if use_prefix is not None and current_tag.startswith(use_prefix):
@@ -82,7 +82,7 @@ def release_local(url, version='patch', base='master', integration=None, default
 
     print_info('Next version: {0}'.format(next_version))
 
-    next_tag = next_version
+    next_tag = next_version.strip()
 
     if use_prefix is not None:
         next_tag = use_prefix + next_version
@@ -97,7 +97,12 @@ def release_local(url, version='patch', base='master', integration=None, default
 
     print_info('Tagging and pushing version')
 
-    release_tag = repo.create_tag(next_tag, message='Release tag of {0}'.format(next_version))
+    release_tag = repo.create_tag(
+        path=next_tag,
+        ref=repo.heads[base],
+        message='Release tag of {0}'.format(next_version)
+    )
+
     origin.push([release_tag, repo.heads[base]], progress=SimpleProgressPrinter())
 
     print_info('Done, clearing workspace')
