@@ -3,6 +3,7 @@ from os.path import expanduser, join, isfile
 
 import yaml
 from fabric.state import env
+from hemp.internal.utils import print_info
 
 _default_locations = [
     expanduser('~'),
@@ -41,6 +42,8 @@ def load_hempfiles(file_paths=None):
         return
     config = parse_hempfiles(file_paths)
     for option, value in config.items():
+        if 'hemp' != option:
+            print_info('[ENV] {0}: {1}'.format(option, value))
         setattr(env, option, value)
 
 

@@ -5,6 +5,7 @@ from hemp.internal.utils import print_err, print_info
 
 @task(name='on')
 def on(env_name=None):
+    print_info('Loading settings for {0}'.format(env_name))
     if env_name is None:
         print_err('Please, provide environment name, like, on:staging')
     if not env.hemp:
@@ -16,6 +17,13 @@ def on(env_name=None):
     environment = env.hemp['environments'][env_name]
     if 'roles' not in environment:
         print_err('Roles are not defined for this environment')
+
+    env.environment = env_name
+
+    if 'env' in environment:
+        for key, value in environment['env'].items():
+            print_info('[ENV] {0}: {1}'.format(key, value))
+            setattr(env, key, value)
 
     all_hosts = []
 
@@ -29,7 +37,9 @@ def on(env_name=None):
     all_hosts = list(set(all_hosts))
     env.hosts = list(set(all_hosts + env.hosts))
 
-    print_info('Loaded hosts and roles for {0}'.format(env_name))
+    print_info('[ENV] hosts: {0}'.format(env.hosts))
+    print_info('[ENV] roles: {0}'.format(env.roledefs))
+    print_info('Loaded env, hosts and roles for {0}'.format(env_name))
 
 
 @task

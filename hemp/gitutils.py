@@ -1,7 +1,7 @@
 from git import Git, Repo
 from natsort.natsort import natsorted, ns
 
-from hemp.internal.utils import SimpleProgressPrinter
+from hemp.internal.utils import SimpleProgressPrinter, print_info
 
 
 def remote_tags(url, alg=ns.VERSION):
@@ -35,6 +35,11 @@ def last_remote_tag(url, alg=ns.VERSION):
 
 
 def clone(url, directory, single_branch=None):
+    print_info('Cloning {0} to {1} {2}'.format(
+        url,
+        directory,
+        '[full clone]' if single_branch is None else '[{0}]'.format(single_branch)
+    ))
     # type: (str, str, str) -> Repo
     """
     Clone a repository, optionally using shallow clone
