@@ -18,7 +18,7 @@ def remote_tags(url, alg=ns.VERSION):
     remote_git = Git()
     for line in remote_git.ls_remote('--tags', '--quiet', url).split('\n'):
         hash_ref = line.split('\t')
-        tags.append(hash_ref[1][10:])
+        tags.append(hash_ref[1][10:].replace('^{}'))
     return natsorted(tags, alg=alg)
 
 
