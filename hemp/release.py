@@ -3,13 +3,39 @@ from tempfile import mkdtemp
 
 from git import Repo
 from semver import bump_build, bump_prerelease, bump_patch, bump_major, bump_minor
+from natsort.natsort import natsorted, ns
 
-from hemp.utils import _SimpleProgressPrinter, print_err, print_info, _print_git_output
+from hemp.internal.utils import SimpleProgressPrinter, print_err, print_info, print_git_output
 
 
 def release_local(url, version='patch', base='master', integration=None, default_version='0.0.1', use_prefix=None):
+    # type: (str, str, str, str, str, str) -> str
+    """
+    Tag given repository with a new semver tag (bump version),
+    optionally merging a integration branch.
+
+    This will:
+        - clone the repository to temporary directory
+        - checkout branch indicated via base argument
+        - retrieve all the tags, sort them in natural order
+        - retrieve the last tag and bump it to given version
+        - merge integration branch, if defined
+        - tag and push base branch back to origin
+
+    If no tag is present and version argument is any of the bump arguments,
+    default_version will be used
+
+    :rtype: str
+    :param url: URL of the repository
+    :param version: specific version or one of: build, prerelease, patch, minor, major
+    :param base: base branch to use, by default master
+    :param integration: integration branch to use, by default none
+    :param default_version: default version used for when there are no tags and no specific version, default 0.0.1
+    :param use_prefix: use prefix for tags - sometimes, 'v',
+    :return: newly release version string
+    """
     workspace = mkdtemp()
-    repo = Repo.clone_from(url, workspace, progress=_SimpleProgressPrinter())
+    repo = Repo.clone_from(url, workspace, progress=SimpleProgressPrinter())
 
     if repo.bare:
         print_err('Cloned a bare repository, can not release [???]')
@@ -17,13 +43,13 @@ def release_local(url, version='patch', base='master', integration=None, default
     origin = repo.remote('origin')
 
     if repo.active_branch.name != base:
-        origin.fetch('refs/heads/{0}:refs/heads/{0}'.format(base), progress=_SimpleProgressPrinter())
+        origin.fetch('refs/heads/{0}:refs/heads/{0}'.format(base), progress=SimpleProgressPrinter())
         repo.heads[base].checkout()
 
     last_tag = None
 
     if repo.tags:
-        sorted_tags = sorted(repo.tags, key=lambda t: t.commit.committed_date)
+        sorted_tags = natsorted(repo.tags, key=lambda t: t.commit.path, alg=ns.VERSION)
         current_tag = sorted_tags[-1].path[10:]
         print_info('Current tag is {0}'.format(current_tag))
         if use_prefix is not None and current_tag.startswith(use_prefix):
@@ -65,14 +91,14 @@ def release_local(url, version='patch', base='master', integration=None, default
 
     if integration is not None and integration in repo.heads:
         print_info('Found integration branch "{0}", fetching'.format(integration))
-        origin.fetch('refs/heads/{0}:refs/heads/{0}'.format(integration), progress=_SimpleProgressPrinter())
+        origin.fetch('refs/heads/{0}:refs/heads/{0}'.format(integration), progress=SimpleProgressPrinter())
         print_info('Will now attempt fast-forward {0} to include {1}'.format(base, integration))
-        _print_git_output(repo.git.merge('--commit', '--no-edit', '--stat', '--ff-only', '-v', integration))
+        print_git_output(repo.git.merge('--commit', '--no-edit', '--stat', '--ff-only', '-v', integration))
 
     print_info('Tagging and pushing version')
 
     release_tag = repo.create_tag(next_tag, message='Release tag of {0}'.format(next_version))
-    origin.push([release_tag, repo.heads[base]], progress=_SimpleProgressPrinter())
+    origin.push([release_tag, repo.heads[base]], progress=SimpleProgressPrinter())
 
     print_info('Done, clearing workspace')
     rmtree(workspace)

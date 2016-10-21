@@ -1,6 +1,6 @@
 from fabric.api import task, env
 
-from hemp.utils import print_err, print_info
+from hemp.internal.utils import print_err, print_info
 
 
 @task(name='on')

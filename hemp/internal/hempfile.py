@@ -11,6 +11,7 @@ _default_locations = [
 
 
 def discover_hempfiles(extra_locations=None):
+    # type: (list) -> list
     locations = _default_locations
     if extra_locations is not None:
         locations = extra_locations + _default_locations
@@ -23,6 +24,7 @@ def discover_hempfiles(extra_locations=None):
 
 
 def parse_hempfiles(file_paths=None):
+    # type: (list) -> dict
     if file_paths is None:
         file_paths = discover_hempfiles()
     config = {}
@@ -34,6 +36,7 @@ def parse_hempfiles(file_paths=None):
 
 
 def load_hempfiles(file_paths=None):
+    # type: (list) -> None
     if 'hemp' in env:
         return
     config = parse_hempfiles(file_paths)
@@ -42,6 +45,7 @@ def load_hempfiles(file_paths=None):
 
 
 def _deep_merge(source, destination):
+    # type: (dict, dict) -> dict
     for key, value in source.items():
         if isinstance(value, dict):
             node = destination.setdefault(key, {})

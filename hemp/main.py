@@ -3,11 +3,12 @@ from fabric import state
 from fabric.main import load_tasks_from_module, find_fabfile
 
 from hemp import api
-from hemp.hempfile import load_hempfiles
-from hemp.utils import print_info
+from hemp.internal.hempfile import load_hempfiles
+from hemp.internal.utils import print_info
 
 
 def main(fabfile_locations=None, file_paths=None):
+    # type: (list, list) -> None
     fabfile_local = find_fabfile()
     if fabfile_locations is None and fabfile_local is None:
         fabfile_locations = ['~/fabfile.py']

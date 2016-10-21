@@ -1,11 +1,18 @@
-
-from natsort.natsort import natsorted, ns
 from git import Git, Repo
+from natsort.natsort import natsorted, ns
 
-from hemp.utils import _SimpleProgressPrinter
+from hemp.internal.utils import SimpleProgressPrinter
 
 
 def remote_tags(url, alg=ns.VERSION):
+    # type: (str, int) -> list
+    """
+    List all available remote tags naturally sorted as version strings
+    :rtype: list
+    :param url: Remote URL of the repository
+    :param alg: Sorting algorithm
+    :return: list of available tags
+    """
     tags = []
     remote_git = Git()
     for line in remote_git.ls_remote('--tags', '--quiet', url).split('\n'):
@@ -15,14 +22,32 @@ def remote_tags(url, alg=ns.VERSION):
 
 
 def last_remote_tag(url, alg=ns.VERSION):
+    # type: (str, int) -> str
+    """
+    Get last tag from remote repository. This utility retrieves and sorts tags in natural order,
+    not by date!
+    :rtype: str
+    :param url:
+    :param alg:
+    :return: last available tag, sorted in natural order
+    """
     return remote_tags(url, alg)[-1]
 
 
 def clone(url, directory, single_branch=None):
+    # type: (str, str, str) -> Repo
+    """
+    Clone a repository, optionally using shallow clone
+    :rtype: Repo
+    :param url: URL of the repository
+    :param directory: Directory to clone to
+    :param single_branch: branch to clone if shallow clone is preferred
+    :return: GitPython repository object of the newly cloned repository
+    """
     args = {
         'url': url,
         'to_path': directory,
-        'progress': _SimpleProgressPrinter(),
+        'progress': SimpleProgressPrinter(),
         'recursive': True
     }
 
