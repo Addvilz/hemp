@@ -59,6 +59,10 @@ def release_local(url, version='patch', base='master', integration=None, default
 
     print_info('Last known version: {0}'.format(last_tag))
 
+    if last_tag is None:
+        print('Unknown last version, using default version {0}'.format(default_version))
+        last_tag = default_version
+
     if 'build' == version:
         next_version = bump_build(last_tag)
 
@@ -73,12 +77,8 @@ def release_local(url, version='patch', base='master', integration=None, default
 
     elif 'major' == version:
         next_version = bump_major(last_tag)
-
     else:
-        if version in ['build', 'prerelease', 'patch', 'minor', 'major']:
-            next_version = default_version
-        else:
-            next_version = version
+        next_version = version
 
     print_info('Next version: {0}'.format(next_version))
 
