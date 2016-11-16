@@ -32,7 +32,7 @@ def release_local(url, version='patch', base='master', integration=None, default
     :param integration: integration branch to use, by default none
     :param default_version: default version used for when there are no tags and no specific version, default 0.0.1
     :param use_prefix: use prefix for tags - sometimes, 'v',
-    :return: newly release version string
+    :return: newly released version string or None if can not tag
     """
     workspace = mkdtemp()
     repo = Repo.clone_from(url, workspace, progress=SimpleProgressPrinter())
@@ -45,6 +45,18 @@ def release_local(url, version='patch', base='master', integration=None, default
     if repo.active_branch.name != base:
         origin.fetch('refs/heads/{0}:refs/heads/{0}'.format(base), progress=SimpleProgressPrinter())
         repo.heads[base].checkout()
+
+    head_tags = (tag for tag in repo.tags if tag.commit == repo.head.commit)
+    sorted_head_tags = natsorted(head_tags, key=lambda t: t.path, alg=ns.VERSION)
+
+    if 0 != len(sorted_head_tags):
+        print_info(
+            'Not going to auto-tag already tagged HEAD, tagged with {0}'
+                .format(
+                str.join(', ', (t.path[10:] for t in sorted_head_tags))
+            )
+        )
+        return None
 
     last_tag = None
 
