@@ -46,6 +46,12 @@ def release_local(url, version='patch', base='master', integration=None, default
         origin.fetch('refs/heads/{0}:refs/heads/{0}'.format(base), progress=SimpleProgressPrinter())
         repo.heads[base].checkout()
 
+    if integration is not None and integration in repo.heads:
+        print_info('Found integration branch "{0}", fetching'.format(integration))
+        origin.fetch('refs/heads/{0}:refs/heads/{0}'.format(integration), progress=SimpleProgressPrinter())
+        print_info('Will now attempt fast-forward {0} to include {1}'.format(base, integration))
+        print_git_output(repo.git.merge('--commit', '--no-edit', '--stat', '--ff-only', '-v', integration))
+
     head_tags = (tag for tag in repo.tags if tag.commit == repo.head.commit)
     sorted_head_tags = natsorted(head_tags, key=lambda t: t.path, alg=ns.VERSION)
 
@@ -59,12 +65,6 @@ def release_local(url, version='patch', base='master', integration=None, default
         return None
 
     last_tag = None
-
-    if integration is not None and integration in repo.heads:
-        print_info('Found integration branch "{0}", fetching'.format(integration))
-        origin.fetch('refs/heads/{0}:refs/heads/{0}'.format(integration), progress=SimpleProgressPrinter())
-        print_info('Will now attempt fast-forward {0} to include {1}'.format(base, integration))
-        print_git_output(repo.git.merge('--commit', '--no-edit', '--stat', '--ff-only', '-v', integration))
 
     if repo.tags:
         sorted_tags = natsorted(repo.tags, key=lambda t: t.path, alg=ns.VERSION)
