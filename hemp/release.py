@@ -60,6 +60,12 @@ def release_local(url, version='patch', base='master', integration=None, default
 
     last_tag = None
 
+    if integration is not None and integration in repo.heads:
+        print_info('Found integration branch "{0}", fetching'.format(integration))
+        origin.fetch('refs/heads/{0}:refs/heads/{0}'.format(integration), progress=SimpleProgressPrinter())
+        print_info('Will now attempt fast-forward {0} to include {1}'.format(base, integration))
+        print_git_output(repo.git.merge('--commit', '--no-edit', '--stat', '--ff-only', '-v', integration))
+
     if repo.tags:
         sorted_tags = natsorted(repo.tags, key=lambda t: t.path, alg=ns.VERSION)
         current_tag = sorted_tags[-1].path[10:]
@@ -100,12 +106,6 @@ def release_local(url, version='patch', base='master', integration=None, default
         next_tag = use_prefix + next_version
 
     print_info('Next tag: {0}'.format(next_tag))
-
-    if integration is not None and integration in repo.heads:
-        print_info('Found integration branch "{0}", fetching'.format(integration))
-        origin.fetch('refs/heads/{0}:refs/heads/{0}'.format(integration), progress=SimpleProgressPrinter())
-        print_info('Will now attempt fast-forward {0} to include {1}'.format(base, integration))
-        print_git_output(repo.git.merge('--commit', '--no-edit', '--stat', '--ff-only', '-v', integration))
 
     print_info('Tagging and pushing version')
 
