@@ -1,7 +1,7 @@
 Hemp
 =====
 
-Extra tools for Fabric
+Environment aware configuration and tools for `Fabric <http://www.fabfile.org>`_.
 
 .. image:: https://img.shields.io/pypi/v/Hemp.svg?style=flat-square   :target: https://pypi.python.org/pypi/Hemp
 .. image:: https://img.shields.io/pypi/l/Hemp.svg?style=flat-square   :target: https://pypi.python.org/pypi/Hemp
@@ -12,6 +12,17 @@ Installation
 ------------
 
 ``pip install hemp``
+
+What is Hemp
+-------------
+
+| Hemp is wrapper around `Fabric <http://www.fabfile.org>`_
+ that gives Fabric some environmental awareness and allows for use of configuration
+| files to set common or per-environment variables to be used in Fabric scripts.
+| Hemp is considered stable and production ready. 
+| It is used internally by `MobileCashout <https://github.com/mobilecashout>`_ and has been
+| used to perform thousands of production deployments and uncountable amount of automation
+| tasks across multitude of platforms without any issues so far.
 
 Usage
 -----
