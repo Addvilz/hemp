@@ -1,17 +1,16 @@
 from git import Git, Repo
-from natsort.natsort import natsorted, ns
+from natsort.natsort import natsorted
 from urlparse import urlparse
 
 from hemp.internal.utils import SimpleProgressPrinter, print_info
 
 
-def remote_tags(url, alg=ns.VERSION):
-    # type: (str, int) -> list
+def remote_tags(url):
+    # type: (str) -> list
     """
     List all available remote tags naturally sorted as version strings
     :rtype: list
     :param url: Remote URL of the repository
-    :param alg: Sorting algorithm
     :return: list of available tags
     """
     tags = []
@@ -19,20 +18,19 @@ def remote_tags(url, alg=ns.VERSION):
     for line in remote_git.ls_remote('--tags', '--quiet', url).split('\n'):
         hash_ref = line.split('\t')
         tags.append(hash_ref[1][10:].replace('^{}',''))
-    return natsorted(tags, alg=alg)
+    return natsorted(tags)
 
 
-def last_remote_tag(url, alg=ns.VERSION):
-    # type: (str, int) -> str
+def last_remote_tag(url):
+    # type: (str) -> str
     """
     Get last tag from remote repository. This utility retrieves and sorts tags in natural order,
     not by date!
     :rtype: str
     :param url:
-    :param alg:
     :return: last available tag, sorted in natural order
     """
-    return remote_tags(url, alg)[-1]
+    return remote_tags(url)[-1]
 
 
 def clone(url, directory, single_branch=None):
