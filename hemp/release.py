@@ -3,7 +3,7 @@ from tempfile import mkdtemp
 
 from git import Repo
 from semver import bump_build, bump_prerelease, bump_patch, bump_major, bump_minor
-from natsort.natsort import natsorted, ns
+from natsort.natsort import natsorted
 
 from hemp.internal.utils import SimpleProgressPrinter, print_err, print_info, print_git_output
 
@@ -53,7 +53,7 @@ def release_local(url, version='patch', base='master', integration=None, default
         print_git_output(repo.git.merge('--commit', '--no-edit', '--stat', '--ff-only', '-v', integration))
 
     head_tags = (tag for tag in repo.tags if tag.commit == repo.head.commit)
-    sorted_head_tags = natsorted(head_tags, key=lambda t: t.path, alg=ns.VERSION)
+    sorted_head_tags = natsorted(head_tags, key=lambda t: t.path)
 
     if 0 != len(sorted_head_tags):
         print_info(
@@ -67,7 +67,7 @@ def release_local(url, version='patch', base='master', integration=None, default
     last_tag = None
 
     if repo.tags:
-        sorted_tags = natsorted(repo.tags, key=lambda t: t.path, alg=ns.VERSION)
+        sorted_tags = natsorted(repo.tags, key=lambda t: t.path)
         current_tag = sorted_tags[-1].path[10:]
         print_info('Current tag is {0}'.format(current_tag))
         if use_prefix is not None and current_tag.startswith(use_prefix):
