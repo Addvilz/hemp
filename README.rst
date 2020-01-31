@@ -8,6 +8,41 @@ Environment aware configuration and tools for `Fabric <http://www.fabfile.org>`_
 .. image:: https://img.shields.io/pypi/pyversions/Hemp.svg?style=flat-square   :target: https://pypi.python.org/pypi/Hemp
 .. image:: https://img.shields.io/github/issues/Addvilz/hemp.svg?style=flat-square   :target: https://github.com/Addvilz/hemp/issues
 
+This software is deprecated!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| Hemp was initially created as a support wrapper around Fabric 1.x.
+|
+| The current Fabric version is 2.x and it has completely different, and mostly incompatible API to that of Fabric 1.x. Fabric 1.x is end of support, and does not seem to receive any updates.
+|
+| Fabric 1.x will not be migrated to Python 3, and many of the libraries 1.x depends to are also locked to Python 2.x.
+|
+| Python 2.x is officially end of life by Python Software Foundation, and has entered community-only support phase, meaning there is no guaranteed support timelines except for RHEL (Python 2 EOL at 2024).
+|
+| **What to do with tooling based on Hemp/Fabric?**
+|
+| Both Hemp and Fabric still work just fine, and are expected to work for some time. I will do my best to fix critical
+| issues in Hemp itself, but you should STRONGLY consider **migrating to another remote automation tool**
+| as I can not support Fabric 1.x and it's API.
+| 
+| There are plenty of options to consider - Mina, Shipit.js, Deployer, even CMF tools like Ansible and Puppet.
+|
+| **Would an upgrade to Fabric 2.x help?**
+|
+| No. For all practical purposes Fabric 1.x and 2.x should be considered different software.
+|
+| There is no clear upgrade path between the two versions, features parity between 1.x and 2.x is largely absent, and there are major API differences between the versions. Unless your Fabric script is ~20 lines long, upgrade will most likely end in complete rewrite instead.
+|
+| **Why not rewrite against Fabric 2.x?**
+|
+| The author of Fabric has a history of rebuilding/rewriting libraries and introducing critical incompatibilities
+| with little regard to how practical a migration could be for a major projects relying on said libraries. Rewriting a couple of local automation scripts could be worth the effort. Rewriting years of history on automation tooling spanning dozens of independent code bases - less so.
+|
+| My personal advice would be to **avoid Fabric in any future projects**, or at least abstracting it away as much 
+| as physically possible. There were few good alternatives when this project was first created internally
+| for the organization it was developed for. This is not the case any longer.
+
+
 Installation
 ------------
 
@@ -113,8 +148,9 @@ Loading the hosts and roledefs
     env.roledefs['web'] = ['web0.host.com']
     env.roledefs['db'] = ['web0.host.com']
 
+
 Host and role definition merging
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | Instead of overwriting, Hemp will merge whatever values there are
   already located in ``env`` dictionary, both for hosts
@@ -140,4 +176,3 @@ License
 -------
 
 Licensed under terms and conditions of Apache 2.0 license.
-
