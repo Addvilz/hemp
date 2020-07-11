@@ -8,9 +8,24 @@ Environment aware configuration and tools for `Fabric <http://www.fabfile.org>`_
 .. image:: https://img.shields.io/pypi/pyversions/Hemp.svg?style=flat-square   :target: https://pypi.python.org/pypi/Hemp
 .. image:: https://img.shields.io/github/issues/Addvilz/hemp.svg?style=flat-square   :target: https://github.com/Addvilz/hemp/issues
 
-This software is deprecated!
+
+This software is now end of life
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| **Update July 2020**
+|
+| Most of the software and projects known to me to have been using Hemp have now been migrated away and
+| are now using alternative solutions. Hemp is now end of life and will receive no further updates or bugfixes.
+|
+| Alternative to Hemp is now also available in form of `libkafe <https://github.com/libkafe/kafe>`_. If you 
+| are still using Hemp in production, you should consider migrating to libkafe or alternative solution as soon
+| as possible.
+
+This software is deprecated
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+| **Update January 2020**
+|
 | Hemp was initially created as a support wrapper around Fabric 1.x.
 |
 | The current Fabric version is 2.x and it has completely different, and mostly incompatible API to that of Fabric 1.x. Fabric 1.x is end of support, and does not seem to receive any updates.
