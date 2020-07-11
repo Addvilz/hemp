@@ -14,12 +14,9 @@ This software is now end of life
 
 | **Update July 2020**
 |
-| Most of the software and projects known to me to have been using Hemp have now been migrated away and
-| are now using alternative solutions. Hemp is now end of life and will receive no further updates or bugfixes.
+| Most of the software and projects known to me to have been using Hemp have now been migrated away and are now using alternative solutions. Hemp is now end of life and will receive no further updates or bugfixes.
 |
-| Alternative to Hemp is now also available in form of `libkafe <https://github.com/libkafe/kafe>`_. If you 
-| are still using Hemp in production, you should consider migrating to libkafe or alternative solution as soon
-| as possible.
+| Alternative to Hemp is now also available in form of `libkafe <https://github.com/libkafe/kafe>`_. If you are still using Hemp in production, you should consider migrating to libkafe or alternative solution as soon as possible.
 
 This software is deprecated
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
